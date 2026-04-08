@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { createClient } from "@/lib/supabase/server";
 import { InfoIcon } from "lucide-react";
@@ -28,6 +29,12 @@ export default function ProtectedPage() {
       </div>
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Your user details</h2>
+        <Link
+          href="/protected/profile"
+          className="text-sm underline underline-offset-4 text-primary"
+        >
+          프로필 설정 →
+        </Link>
         <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
           <Suspense>
             <UserDetails />
