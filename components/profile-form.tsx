@@ -1,10 +1,11 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { createClient } from "@/lib/supabase/client";
 import type { Tables } from "@/types/database.types";
 
 // profiles 테이블의 Row 타입을 재사용
@@ -21,7 +22,10 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
   const [bio, setBio] = useState(profile.bio ?? "");
   const [website, setWebsite] = useState(profile.website ?? "");
   const [avatarUrl, setAvatarUrl] = useState(profile.avatar_url ?? "");
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
 
   const supabase = createClient();
@@ -54,7 +58,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">
+    <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
       {/* 이메일은 Auth에서 관리하므로 읽기 전용 */}
       <div className="flex flex-col gap-1">
         <Label htmlFor="email">이메일</Label>
@@ -113,7 +117,11 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
 
       {/* 저장/에러 메시지 */}
       {message && (
-        <p className={message.type === "success" ? "text-green-600" : "text-red-600"}>
+        <p
+          className={
+            message.type === "success" ? "text-green-600" : "text-red-600"
+          }
+        >
           {message.text}
         </p>
       )}

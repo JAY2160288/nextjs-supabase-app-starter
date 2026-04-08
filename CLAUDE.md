@@ -4,30 +4,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 프로젝트 개요
 
-Next.js + Supabase 기반의 인증 스타터 키트 강의 실습 프로젝트입니다.
+Next.js + Supabase 기반의 인증 스타터 키트 실습 프로젝트입니다.
 
 - **핵심 기능**: 이메일/비밀번호 회원가입·로그인, 이메일 OTP 인증, 사용자 프로필 관리, 보호 라우트
 - **배포 타겟**: Vercel
 
 ## 기술 스택
 
-| 계층 | 기술 |
-|------|------|
-| 프레임워크 | Next.js (latest, App Router) |
-| 언어 | TypeScript 5 |
-| UI | React 19, Radix UI, shadcn/ui (New York style) |
-| 스타일링 | Tailwind CSS 3.4 |
-| 백엔드/DB | Supabase (PostgreSQL) |
-| 인증 | Supabase Auth (쿠키 기반 SSR) |
-| 테마 | next-themes (다크모드) |
+| 계층       | 기술                                           |
+| ---------- | ---------------------------------------------- |
+| 프레임워크 | Next.js (latest, App Router)                   |
+| 언어       | TypeScript 5                                   |
+| UI         | React 19, Radix UI, shadcn/ui (New York style) |
+| 스타일링   | Tailwind CSS 3.4                               |
+| 백엔드/DB  | Supabase (PostgreSQL)                          |
+| 인증       | Supabase Auth (쿠키 기반 SSR)                  |
+| 테마       | next-themes (다크모드)                         |
 
 ## 개발 명령어
 
 ```bash
-npm run dev      # 개발 서버 (http://localhost:3000)
-npm run build    # 프로덕션 빌드
-npm run lint     # ESLint 검사
+npm run dev          # 개발 서버 (http://localhost:3000)
+npm run build        # 프로덕션 빌드
+npm run lint         # ESLint 검사
+npm run lint:fix     # ESLint 자동 수정
+npm run format       # Prettier 포맷팅
+npm run format:check # 포맷팅 검사 (CI용)
+npm run typecheck    # TypeScript 타입 체크
 ```
+
+Pre-commit hook(Husky)이 설정되어 있어 커밋 시 자동으로 lint-staged(ESLint + Prettier) 및 typecheck가 실행됩니다.
 
 테스트 프레임워크는 설정되어 있지 않습니다.
 
@@ -46,11 +52,11 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=eyJxxxxxx
 
 ### Supabase 클라이언트 선택 규칙
 
-| 컨텍스트 | 사용할 파일 |
-|----------|-------------|
-| 서버 컴포넌트, Route Handler | `lib/supabase/server.ts` |
+| 컨텍스트                             | 사용할 파일              |
+| ------------------------------------ | ------------------------ |
+| 서버 컴포넌트, Route Handler         | `lib/supabase/server.ts` |
 | 클라이언트 컴포넌트 (`"use client"`) | `lib/supabase/client.ts` |
-| 미들웨어 | `lib/supabase/proxy.ts` |
+| 미들웨어                             | `lib/supabase/proxy.ts`  |
 
 ### 라우트 구조
 

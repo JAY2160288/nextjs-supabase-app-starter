@@ -91,12 +91,12 @@ Next.js 앱 구조 설계 시 다음 MCP 서버들을 활용하여 작업 효율
 // 설계 의사결정 시작
 mcp__sequential -
   thinking__sequentialthinking({
-    thought: '프로젝트 요구사항을 분석하여 최적의 라우팅 구조 결정',
+    thought: "프로젝트 요구사항을 분석하여 최적의 라우팅 구조 결정",
     thoughtNumber: 1,
     totalThoughts: 5,
     nextThoughtNeeded: true,
-    stage: 'Analysis',
-  })
+    stage: "Analysis",
+  });
 
 // 예시: 레이아웃 구조 결정
 // thought 1: PRD 분석 및 페이지 목록 추출
@@ -131,27 +131,27 @@ mcp__sequential -
 mcp__context7__resolve -
   library -
   id({
-    libraryName: 'next.js',
-  })
+    libraryName: "next.js",
+  });
 // 결과: /vercel/next.js
 
 // 2. 특정 버전 및 토픽 문서 검색
 mcp__context7__get -
   library -
   docs({
-    context7CompatibleLibraryID: '/vercel/next.js/v15.5.3',
-    topic: 'intercepting routes',
+    context7CompatibleLibraryID: "/vercel/next.js/v15.5.3",
+    topic: "intercepting routes",
     tokens: 3000,
-  })
+  });
 
 // 3. 일반적인 Next.js 문서 검색 (최신 버전)
 mcp__context7__get -
   library -
   docs({
-    context7CompatibleLibraryID: '/vercel/next.js',
-    topic: 'params searchParams promise',
+    context7CompatibleLibraryID: "/vercel/next.js",
+    topic: "params searchParams promise",
     tokens: 2000,
-  })
+  });
 ```
 
 **자주 검색하는 토픽**:
@@ -179,38 +179,40 @@ mcp__context7__get -
 
 ```typescript
 // 1. 개발 서버 접속 및 페이지 확인
-mcp__playwright__browser_navigate({ url: 'http://localhost:3000' })
-mcp__playwright__browser_snapshot({}) // 현재 DOM 상태 캡처
+mcp__playwright__browser_navigate({ url: "http://localhost:3000" });
+mcp__playwright__browser_snapshot({}); // 현재 DOM 상태 캡처
 
 // 2. 사용자 인터랙션 테스트
 mcp__playwright__browser_fill_form({
-  fields: [{ selector: 'input[type="password"]', value: 'test-password' }],
-})
-mcp__playwright__browser_click({ selector: 'button[type="submit"]' })
-mcp__playwright__browser_wait_for({ text: '견적서 목록' }) // 리디렉션 후 텍스트 확인
+  fields: [{ selector: 'input[type="password"]', value: "test-password" }],
+});
+mcp__playwright__browser_click({ selector: 'button[type="submit"]' });
+mcp__playwright__browser_wait_for({ text: "견적서 목록" }); // 리디렉션 후 텍스트 확인
 
 // 3. 네트워크 요청 검증
-mcp__playwright__browser_network_requests({}) // API 호출 확인
+mcp__playwright__browser_network_requests({}); // API 호출 확인
 
 // 4. 오류 케이스 테스트
-mcp__playwright__browser_navigate({ url: 'http://localhost:3000/invoice/invalid-id' })
-mcp__playwright__browser_snapshot({}) // 오류 페이지 렌더링 확인
+mcp__playwright__browser_navigate({
+  url: "http://localhost:3000/invoice/invalid-id",
+});
+mcp__playwright__browser_snapshot({}); // 오류 페이지 렌더링 확인
 
 // 5. 스크린샷으로 시각적 검증
-mcp__playwright__browser_take_screenshot({})
+mcp__playwright__browser_take_screenshot({});
 ```
 
 **필수 테스트 시나리오**:
 
-| 구현 항목 | 테스트 시나리오 |
-|-----------|----------------|
-| 로그인 플로우 | 올바른 패스워드 → 대시보드 리디렉션 확인 |
-| 로그인 실패 | 틀린 패스워드 → 오류 메시지 표시 확인 |
+| 구현 항목        | 테스트 시나리오                                        |
+| ---------------- | ------------------------------------------------------ |
+| 로그인 플로우    | 올바른 패스워드 → 대시보드 리디렉션 확인               |
+| 로그인 실패      | 틀린 패스워드 → 오류 메시지 표시 확인                  |
 | 인증 보호 라우트 | 비인증 상태 `/dashboard` 접근 → `/login` 리디렉션 확인 |
-| Notion API 연동 | 견적서 목록 페이지에 실제 데이터 렌더링 확인 |
-| 견적서 뷰어 | 유효한 ID로 접근 → 견적서 내용 렌더링 확인 |
-| 잘못된 ID 처리 | 존재하지 않는 ID → 오류 페이지 확인 |
-| URL 복사 | URL 복사 버튼 클릭 → 클립보드 복사 확인 |
+| Notion API 연동  | 견적서 목록 페이지에 실제 데이터 렌더링 확인           |
+| 견적서 뷰어      | 유효한 ID로 접근 → 견적서 내용 렌더링 확인             |
+| 잘못된 ID 처리   | 존재하지 않는 ID → 오류 페이지 확인                    |
+| URL 복사         | URL 복사 버튼 클릭 → 클립보드 복사 확인                |
 
 ### 4. Shadcn 활용 (UI 구성 단계 - 권장)
 
@@ -228,21 +230,21 @@ mcp__playwright__browser_take_screenshot({})
 ```typescript
 // 1. 필요한 컴포넌트 검색
 mcp__shadcn__search_items_in_registries({
-  registries: ['@shadcn'],
-  query: 'skeleton',
+  registries: ["@shadcn"],
+  query: "skeleton",
   limit: 5,
-})
+});
 
 // 2. 여러 컴포넌트 설치 명령 확인
 mcp__shadcn__get_add_command_for_items({
-  items: ['@shadcn/skeleton', '@shadcn/button', '@shadcn/alert'],
-})
+  items: ["@shadcn/skeleton", "@shadcn/button", "@shadcn/alert"],
+});
 // 결과: npx shadcn@latest add skeleton button alert
 
 // 3. 컴포넌트 상세 정보 확인
 mcp__shadcn__view_items_in_registries({
-  items: ['@shadcn/breadcrumb'],
-})
+  items: ["@shadcn/breadcrumb"],
+});
 ```
 
 **페이지 유형별 필요 컴포넌트**:
@@ -378,9 +380,9 @@ Phase 7: 검토 및 최적화 (Sequential Thinking)
 
    ```typescript
    mcp__shadcn__search_items_in_registries({
-     registries: ['@shadcn'],
-     query: 'skeleton button alert',
-   })
+     registries: ["@shadcn"],
+     query: "skeleton button alert",
+   });
    ```
 
 3. **설치 명령 실행**
@@ -476,12 +478,12 @@ Phase 7: 검토 및 최적화 (Sequential Thinking)
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '요구사항 분석: 3개 주요 페이지 (대시보드, 프로필, 설정) + 인증 시스템',
+      "요구사항 분석: 3개 주요 페이지 (대시보드, 프로필, 설정) + 인증 시스템",
     thoughtNumber: 1,
     totalThoughts: 5,
     nextThoughtNeeded: true,
-    stage: 'Analysis',
-  })
+    stage: "Analysis",
+  });
 // 분석 결과:
 // - 3개 주요 페이지: /dashboard, /profile, /settings
 // - 인증이 필요한 영역 (라우트 그룹 활용)
@@ -490,12 +492,12 @@ mcp__sequential -
 // Thought 2: 라우팅 구조 결정
 mcp__sequential -
   thinking__sequentialthinking({
-    thought: '라우팅 구조: (authenticated) 그룹 사용, middleware로 인증 검증',
+    thought: "라우팅 구조: (authenticated) 그룹 사용, middleware로 인증 검증",
     thoughtNumber: 2,
     totalThoughts: 5,
     nextThoughtNeeded: true,
-    stage: 'Planning',
-  })
+    stage: "Planning",
+  });
 // 결정사항:
 // - app/(authenticated)/ 라우트 그룹
 // - middleware.ts에서 인증 체크
@@ -505,12 +507,12 @@ mcp__sequential -
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '레이아웃: Root Layout (전역) → Authenticated Layout (네비게이션) → 페이지',
+      "레이아웃: Root Layout (전역) → Authenticated Layout (네비게이션) → 페이지",
     thoughtNumber: 3,
     totalThoughts: 5,
     nextThoughtNeeded: true,
-    stage: 'Planning',
-  })
+    stage: "Planning",
+  });
 // 설계:
 // - app/layout.tsx: 전역 프로바이더, 폰트
 // - app/(authenticated)/layout.tsx: 네비게이션, 사이드바
@@ -520,23 +522,23 @@ mcp__sequential -
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '특수 파일: loading.tsx (스켈레톤), error.tsx (에러 바운더리), 병렬 라우트 불필요',
+      "특수 파일: loading.tsx (스켈레톤), error.tsx (에러 바운더리), 병렬 라우트 불필요",
     thoughtNumber: 4,
     totalThoughts: 5,
     nextThoughtNeeded: true,
-    stage: 'Planning',
-  })
+    stage: "Planning",
+  });
 
 // Thought 5: 성능 최적화
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '최적화: 서버 컴포넌트 우선, Suspense로 데이터 페칭 분리, 메타데이터 각 페이지별 설정',
+      "최적화: 서버 컴포넌트 우선, Suspense로 데이터 페칭 분리, 메타데이터 각 페이지별 설정",
     thoughtNumber: 5,
     totalThoughts: 5,
     nextThoughtNeeded: false,
-    stage: 'Planning',
-  })
+    stage: "Planning",
+  });
 ```
 
 **설계 결과**:
@@ -573,10 +575,10 @@ app/
 mcp__context7__get -
   library -
   docs({
-    context7CompatibleLibraryID: '/vercel/next.js/v15.5.3',
-    topic: 'params searchParams promise',
+    context7CompatibleLibraryID: "/vercel/next.js/v15.5.3",
+    topic: "params searchParams promise",
     tokens: 2000,
-  })
+  });
 // 확인 결과: params와 searchParams는 Promise로 변경됨
 // const { id } = await params 형태로 사용
 
@@ -584,20 +586,20 @@ mcp__context7__get -
 mcp__context7__get -
   library -
   docs({
-    context7CompatibleLibraryID: '/vercel/next.js',
-    topic: 'route groups authentication middleware',
+    context7CompatibleLibraryID: "/vercel/next.js",
+    topic: "route groups authentication middleware",
     tokens: 2500,
-  })
+  });
 // 확인 결과: middleware.ts에서 NextResponse.redirect 활용 권장
 
 // 3. loading.tsx 사용법
 mcp__context7__get -
   library -
   docs({
-    context7CompatibleLibraryID: '/vercel/next.js',
-    topic: 'loading.tsx suspense streaming',
+    context7CompatibleLibraryID: "/vercel/next.js",
+    topic: "loading.tsx suspense streaming",
     tokens: 2000,
-  })
+  });
 // 확인 결과: Suspense 기반 자동 스트리밍
 ```
 
@@ -629,21 +631,21 @@ touch middleware.ts
 ```typescript
 // 1. 필요한 컴포넌트 검색
 mcp__shadcn__search_items_in_registries({
-  registries: ['@shadcn'],
-  query: 'skeleton button alert navigation',
+  registries: ["@shadcn"],
+  query: "skeleton button alert navigation",
   limit: 10,
-})
+});
 
 // 2. 설치 명령 확인
 mcp__shadcn__get_add_command_for_items({
   items: [
-    '@shadcn/skeleton',
-    '@shadcn/button',
-    '@shadcn/alert',
-    '@shadcn/navigation-menu',
-    '@shadcn/breadcrumb',
+    "@shadcn/skeleton",
+    "@shadcn/button",
+    "@shadcn/alert",
+    "@shadcn/navigation-menu",
+    "@shadcn/breadcrumb",
   ],
-})
+});
 // 결과: npx shadcn@latest add skeleton button alert navigation-menu breadcrumb
 ```
 
@@ -726,12 +728,12 @@ export default function DashboardError({
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '구조 검토: 라우트 그룹으로 인증 영역 명확히 분리, 공통 레이아웃 재사용 최적화',
+      "구조 검토: 라우트 그룹으로 인증 영역 명확히 분리, 공통 레이아웃 재사용 최적화",
     thoughtNumber: 1,
     totalThoughts: 4,
     nextThoughtNeeded: true,
-    stage: 'Critical Questioning',
-  })
+    stage: "Critical Questioning",
+  });
 // ✅ 라우트 그룹 (authenticated) 적절
 // ✅ 레이아웃 계층 구조 명확
 // ✅ URL 구조 직관적
@@ -740,12 +742,12 @@ mcp__sequential -
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '성능 검증: 서버 컴포넌트 우선 사용, loading.tsx로 스트리밍 지원, Shadcn 컴포넌트 최적화',
+      "성능 검증: 서버 컴포넌트 우선 사용, loading.tsx로 스트리밍 지원, Shadcn 컴포넌트 최적화",
     thoughtNumber: 2,
     totalThoughts: 4,
     nextThoughtNeeded: true,
-    stage: 'Critical Questioning',
-  })
+    stage: "Critical Questioning",
+  });
 // ✅ 서버 컴포넌트 기본 사용
 // ✅ loading.tsx로 Suspense 지원
 // ✅ 에러 바운더리 설정
@@ -754,12 +756,12 @@ mcp__sequential -
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '확장성 평가: 새 페이지 추가 용이, 레이아웃 변경 시 영향 범위 최소화',
+      "확장성 평가: 새 페이지 추가 용이, 레이아웃 변경 시 영향 범위 최소화",
     thoughtNumber: 3,
     totalThoughts: 4,
     nextThoughtNeeded: true,
-    stage: 'Synthesis',
-  })
+    stage: "Synthesis",
+  });
 // ✅ 새 페이지는 (authenticated) 그룹에 추가만 하면 됨
 // ✅ 레이아웃 변경은 layout.tsx만 수정
 // ✅ middleware 로직 재사용 가능
@@ -768,12 +770,12 @@ mcp__sequential -
 mcp__sequential -
   thinking__sequentialthinking({
     thought:
-      '개선 제안: middleware.ts 추가, not-found.tsx 커스터마이징, @stats 병렬 라우트 고려',
+      "개선 제안: middleware.ts 추가, not-found.tsx 커스터마이징, @stats 병렬 라우트 고려",
     thoughtNumber: 4,
     totalThoughts: 4,
     nextThoughtNeeded: false,
-    stage: 'Conclusion',
-  })
+    stage: "Conclusion",
+  });
 // 💡 middleware.ts에서 인증 로직 구현 필요
 // 💡 404 페이지 커스터마이징 권장
 // 💡 대시보드에 실시간 통계 표시 시 병렬 라우트 고려
@@ -1312,26 +1314,26 @@ export function ChartSkeleton() {
 ```typescript
 // 정적 데이터 (빌드 타임 캐시)
 export async function getCourses() {
-  const res = await fetch('/api/courses', {
-    cache: 'force-cache', // 정적 캐시
-  })
-  return res.json()
+  const res = await fetch("/api/courses", {
+    cache: "force-cache", // 정적 캐시
+  });
+  return res.json();
 }
 
 // 동적 데이터 (시간 기반 재검증)
 export async function getRecentActivity() {
-  const res = await fetch('/api/activity', {
+  const res = await fetch("/api/activity", {
     next: { revalidate: 60 }, // 60초마다 재검증
-  })
-  return res.json()
+  });
+  return res.json();
 }
 
 // 실시간 데이터 (캐시 없음)
 export async function getLiveStats() {
-  const res = await fetch('/api/live-stats', {
-    cache: 'no-store', // 캐시 없음
-  })
-  return res.json()
+  const res = await fetch("/api/live-stats", {
+    cache: "no-store", // 캐시 없음
+  });
+  return res.json();
 }
 ```
 

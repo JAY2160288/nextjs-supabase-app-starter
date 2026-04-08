@@ -1,12 +1,14 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+
 import ProfileForm from "@/components/profile-form";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
 
   // 현재 로그인한 사용자 확인
-  const { data: claimsData, error: claimsError } = await supabase.auth.getClaims();
+  const { data: claimsData, error: claimsError } =
+    await supabase.auth.getClaims();
   if (claimsError || !claimsData?.claims) {
     redirect("/auth/login");
   }
@@ -27,9 +29,9 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-8 max-w-2xl">
+    <div className="flex w-full max-w-2xl flex-1 flex-col gap-8">
       <div>
-        <h1 className="font-bold text-2xl mb-1">프로필 설정</h1>
+        <h1 className="mb-1 text-2xl font-bold">프로필 설정</h1>
         <p className="text-sm text-muted-foreground">
           회원 정보를 확인하고 수정할 수 있습니다.
         </p>
